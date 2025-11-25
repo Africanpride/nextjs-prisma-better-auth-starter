@@ -94,7 +94,7 @@ export default function SignIn02() {
                       toast.error(ctx.error.message);
                     },
                     onSuccess: () => {
-                      router.push("/dashboard");
+                      router.push("/auth/dashboard");
                     },
                   },
                 );
@@ -121,7 +121,7 @@ export default function SignIn02() {
                 await authClient.signIn.social(
                   {
                     provider: "google",
-                    callbackURL: "/dashboard",
+                    callbackURL: "/auth/dashboard",
                   },
                   {
                     onRequest: () => {
@@ -171,7 +171,7 @@ export default function SignIn02() {
                 await authClient.signIn.social(
                   {
                     provider: "microsoft",
-                    callbackURL: "/dashboard",
+                    callbackURL: "/auth/dashboard",
                   },
                   {
                     onRequest: () => {

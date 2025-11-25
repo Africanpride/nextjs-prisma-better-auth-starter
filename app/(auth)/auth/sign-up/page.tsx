@@ -23,7 +23,7 @@ export default function SignUpPage() {
         if (res.error) {
             setError(res.error.message || "Something went wrong.");
         } else {
-            router.push("/dashboard");
+            router.push("/auth/dashboard");
         }
     }
 

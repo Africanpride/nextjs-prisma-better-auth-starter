@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useSession, signOut } from "@/lib/auth-client";
+import { useSession, authClient } from "@/lib/auth-client";
 import { useEffect } from "react";
 
 export default function DashboardPage() {
@@ -10,7 +10,7 @@ export default function DashboardPage() {
 
     useEffect(() => {
         if (!isPending && !session?.user) {
-            router.push("/sign-in");
+            router.push("/auth/login");
         }
     }, [isPending, session, router]);
 
@@ -27,10 +27,18 @@ export default function DashboardPage() {
             <p>Welcome, {user.name || "User"}!</p>
             <p>Email: {user.email}</p>
             <button
-                onClick={() => signOut()}
+                onClick={async () =>
+                    await authClient.signOut({
+                        fetchOptions: {
+                            onSuccess: () => {
+                                router.push("/"); // redirect to login page
+                            },
+                        },
+                    })
+                }
                 className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
             >
-                Sign Out
+                Sign Out of App
             </button>
         </main>
     );
